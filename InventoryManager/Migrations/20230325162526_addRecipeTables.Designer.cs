@@ -3,6 +3,7 @@ using InventoryManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230325162526_addRecipeTables")]
+    partial class addRecipeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,10 +83,10 @@ namespace InventoryManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipe");
                 });
 
-            modelBuilder.Entity("InventoryManager.Data.Recipe_Ingredient", b =>
+            modelBuilder.Entity("InventoryManager.Data.Recipe_Ingredients", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +112,7 @@ namespace InventoryManager.Migrations
                     b.ToTable("Recipe_Ingredients");
                 });
 
-            modelBuilder.Entity("InventoryManager.Data.Recipe_Ingredient", b =>
+            modelBuilder.Entity("InventoryManager.Data.Recipe_Ingredients", b =>
                 {
                     b.HasOne("InventoryManager.Data.Ingredient", "Ingredient")
                         .WithMany("Recipe_Ingredients")

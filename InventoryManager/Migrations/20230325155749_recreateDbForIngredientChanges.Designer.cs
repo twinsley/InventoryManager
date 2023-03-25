@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230325152608_addIngredientTable")]
-    partial class addIngredientTable
+    [Migration("20230325155749_recreateDbForIngredientChanges")]
+    partial class recreateDbForIngredientChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,11 @@ namespace InventoryManager.Migrations
 
             modelBuilder.Entity("InventoryManager.Data.Ingredient", b =>
                 {
-                    b.Property<int>("SKU")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SKU"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -46,6 +46,9 @@ namespace InventoryManager.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("SKU")
+                        .HasColumnType("int");
+
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
@@ -53,7 +56,7 @@ namespace InventoryManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SKU");
+                    b.HasKey("Id");
 
                     b.ToTable("Ingredients");
                 });
