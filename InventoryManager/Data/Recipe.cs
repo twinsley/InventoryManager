@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace InventoryManager.Data
 {
@@ -6,10 +7,12 @@ namespace InventoryManager.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        [AllowNull]
         public string Description { get; set; }
+        public string Directions { get; set; }
         [DisplayName("Time to prepare the recipe")]
         public string PrepTime { get; set; }
-
+        [AllowNull]
         public ICollection<Recipe_Ingredient> Recipe_Ingredients { get; set; }
     }
 }

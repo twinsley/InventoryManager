@@ -18,7 +18,7 @@ namespace InventoryManager.Data
         public string Name { get; set; }
         [AllowNull]
         public string Description { get; set; }
-
+        [AllowNull]
         public ICollection<Recipe_Ingredient> Recipe_Ingredients { get; set; }
 
     }
