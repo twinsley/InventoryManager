@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace InventoryManager.Data
@@ -13,6 +14,7 @@ namespace InventoryManager.Data
         [DisplayName("Time to prepare the recipe")]
         public string PrepTime { get; set; }
         [AllowNull]
+        [ValidateNever]
         public ICollection<Recipe_Ingredient> Recipe_Ingredients { get; set; }
     }
 }

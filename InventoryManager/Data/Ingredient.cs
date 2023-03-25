@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
@@ -10,7 +11,7 @@ namespace InventoryManager.Data
         public int Id { get; set; }
         public int SKU { get; set; }
         public int Size { get; set; }
-        [DisplayName("Size unit (oz, lb, etc")]
+        [DisplayName("Size unit (oz, lb, etc)")]
         public string SizeUnit { get; set; }
         [DisplayName("Number on hand")]
         public float Onhand { get; set; }
@@ -19,6 +20,7 @@ namespace InventoryManager.Data
         [AllowNull]
         public string Description { get; set; }
         [AllowNull]
+        [ValidateNever]
         public ICollection<Recipe_Ingredient> Recipe_Ingredients { get; set; }
 
     }
