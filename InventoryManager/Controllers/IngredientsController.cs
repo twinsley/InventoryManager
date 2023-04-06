@@ -55,7 +55,7 @@ namespace InventoryManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SKU,Size,SizeUnit,Onhand,Price,Name,Description")] Ingredient ingredient)
+        public async Task<IActionResult> Create([Bind("Id,SKU,Size,SizeUnit,Onhand,Price,Name")] Ingredient ingredient)
         {
             if (ModelState.IsValid)
             {

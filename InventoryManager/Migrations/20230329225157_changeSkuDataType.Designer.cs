@@ -3,6 +3,7 @@ using InventoryManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230329225157_changeSkuDataType")]
+    partial class changeSkuDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +33,7 @@ namespace InventoryManager.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -67,6 +71,7 @@ namespace InventoryManager.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Directions")
@@ -100,10 +105,6 @@ namespace InventoryManager.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
-                    b.Property<string>("QuantityMeasure")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
@@ -119,13 +120,13 @@ namespace InventoryManager.Migrations
             modelBuilder.Entity("InventoryManager.Data.Recipe_Ingredient", b =>
                 {
                     b.HasOne("InventoryManager.Data.Ingredient", "Ingredient")
-                        .WithMany()
+                        .WithMany("Recipe_Ingredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InventoryManager.Data.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("Recipe_Ingredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -133,6 +134,16 @@ namespace InventoryManager.Migrations
                     b.Navigation("Ingredient");
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("InventoryManager.Data.Ingredient", b =>
+                {
+                    b.Navigation("Recipe_Ingredients");
+                });
+
+            modelBuilder.Entity("InventoryManager.Data.Recipe", b =>
+                {
+                    b.Navigation("Recipe_Ingredients");
                 });
 #pragma warning restore 612, 618
         }

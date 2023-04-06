@@ -6,10 +6,12 @@
 }
 
 <h1>Details</h1>
-
-<div>
+<div class="row">
     <h4>Recipe</h4>
     <hr />
+    <div class="col-6">
+<div>
+
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -32,6 +34,12 @@
     </dl>
 </div>
 <div>
+    <a asp-action="Create" asp-controller="Recipe_ingredient">Ingredients</a>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
+</div>
+    </div>
+    <div class ="col-6">
+        <iframe src="../../Recipe_Ingredient/Index" width="100%" height="300px"></iframe>
+</div>
 </div>

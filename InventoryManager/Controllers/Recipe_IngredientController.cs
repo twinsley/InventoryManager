@@ -19,10 +19,16 @@ namespace InventoryManager.Controllers
         }
 
         // GET: Recipe_Ingredient
-        public async Task<IActionResult> Index()
+/*        public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Recipe_Ingredients.Include(r => r.Ingredient).Include(r => r.Recipe);
             return View(await applicationDbContext.ToListAsync());
+        }*/
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Recipe_Ingredients.Include(r => r.Ingredient).Include(r => r.Recipe).Where(x => (Int32)x.Id == (Int32)TempData["Recipe"]);
+
+			return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Recipe_Ingredient/Details/5
@@ -58,7 +64,7 @@ namespace InventoryManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RecipeId,IngredientId,Quantity")] Recipe_Ingredient recipe_Ingredient)
+        public async Task<IActionResult> Create([Bind("Id,RecipeId,IngredientId,Quantity, QuantityMeasure")] Recipe_Ingredient recipe_Ingredient)
         {
             if (ModelState.IsValid)
             {

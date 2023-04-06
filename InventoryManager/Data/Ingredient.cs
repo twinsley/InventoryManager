@@ -9,7 +9,7 @@ namespace InventoryManager.Data
     {
         [Key]
         public int Id { get; set; }
-        public int SKU { get; set; }
+        public string SKU { get; set; }
         public int Size { get; set; }
         [DisplayName("Size unit (oz, lb, etc)")]
         public string SizeUnit { get; set; }
@@ -18,10 +18,7 @@ namespace InventoryManager.Data
         public decimal Price { get; set; }
         public string Name { get; set; }
         [AllowNull]
-        public string Description { get; set; }
-        [AllowNull]
         [ValidateNever]
-        public ICollection<Recipe_Ingredient> Recipe_Ingredients { get; set; }
-
+        public string? Description { get; set; }
     }
 }
