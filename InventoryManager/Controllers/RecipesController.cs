@@ -40,7 +40,7 @@ namespace InventoryManager.Controllers
             {
                 return NotFound();
             }
-
+            TempData["Recipe"] = id;
             return View(recipe);
         }
 

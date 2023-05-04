@@ -19,9 +19,16 @@ namespace InventoryManager.Controllers
         }
 
         // GET: Recipe_Ingredient
-        public async Task<IActionResult> Index()
+/*        public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Recipe_Ingredients.Include(r => r.Ingredient).Include(r => r.Recipe);
+            return View(await applicationDbContext.ToListAsync());
+        }*/
+        public async Task<IActionResult> Index()
+        {
+            var recipeId = TempData["Recipe"];
+            var applicationDbContext = _context.Recipe_Ingredients.Include(r => r.Ingredient).Include(r => r.Recipe).Where(x => (Int32)x.Recipe.Id == (Int32)recipeId);
+            TempData["Recipe"] = recipeId;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -48,7 +55,7 @@ namespace InventoryManager.Controllers
         // GET: Recipe_Ingredient/Create
         public IActionResult Create()
         {
-            ViewData["IngredientId"] = new SelectList(_context.Ingredients, "Id", "Id");
+            ViewData["IngredientId"] = new SelectList(_context.Ingredients, "Id", "Name");
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "Id", "Id");
             return View();
         }
@@ -58,7 +65,7 @@ namespace InventoryManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RecipeId,IngredientId,Quantity")] Recipe_Ingredient recipe_Ingredient)
+        public async Task<IActionResult> Create([Bind("Id, RecipeId,IngredientId,Quantity, QuantityMeasure")] Recipe_Ingredient recipe_Ingredient)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +91,7 @@ namespace InventoryManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["IngredientId"] = new SelectList(_context.Ingredients, "Id", "Id", recipe_Ingredient.IngredientId);
+            ViewData["IngredientId"] = new SelectList(_context.Ingredients, "Id", "Name", recipe_Ingredient.IngredientId);
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "Id", "Id", recipe_Ingredient.RecipeId);
             return View(recipe_Ingredient);
         }
